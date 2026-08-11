@@ -1,222 +1,129 @@
-# Python OOP Examples
+# Polymorphism
 
-# Class definition
+# Polymorphism mean 'one name , many forms.'
 
-# A class is a blueprint or template used to create objects.
-# It defined what data and actions an object will have.
-# Data : Attributed
-# Actions : Methods
+# Overloading Method
 
-# House Bluperint
+# Overriding Method
 
-# Class = Blueprint / Design
-
-# Object defination
-
-# An object is a real instance of a class.
-
-# It contains actual values and can use the methods defined in the class.
-
-# Blueprint -> Honda , Audi, Tesla
-
-# Object : Real thing
-
-# Encapsulations
-
-# Encpsulation means keeping data and methods together inside a class and protecting important data from direct access.
-
-# ATM Machine -> Withdraw Cash -> Deposit Case
-
-# Encapsulation = Data Protection +  Controlled Access
+# Method Overloading mean Having multiple method with the same name but diffrent parameters.
 '''
-class ClassName:
-  pass
+class Calculator:
 
-car = className()
+    def add(self , a , b=0 , c=0):
+        return a + b +c
+
+c = Calculator()
+
+print(c.add(10 , 20))
+print(c.add(10 , 20 , 30))
 '''
-'''
-1. Attributes
-2. Constructor
-3. Destructor
-4. self keyword
-'''
+# *args
 
-class Car:
+class Calculator:
 
-  # contsructor
+    def add(self , *number):
+        return sum(number)
 
-  def __init__(self , brand=None , model=None , color=None , price=None , name=None , age=None , dob=None , marks=None):
+c1 = Calculator()
 
-    # car
-    self.brand = brand
-    self.model = model
-    self.color = color
-    self.price = price
+print(c1.add(10 , 20))
+print(c1.add(10 , 20 , 30))
+print(c1.add(10 , 20 , 30 , 40))
 
-    #user
-    self.name = name
-    self.age = age
-    self.dob = dob
-    self.marks = marks
-   
+# Overriding Method
 
-  # Method
-
-  def start(self):
-    print(f"{self.brand} {self.model} is Starting.....")
-
-  # Method
-
-  def Car_Details(self):
-    print(f"""
-    Brand : {self.brand}
-    Model : {self.model}
-    Color : {self.color}
-    Price : {self.price}
-    """)
-
-  def User_Details(self):
-    print(f"""
-    Name : {self.name}
-    Age : {self.age}
-    DOB : {self.dob}
-    Marks : {self.marks}
-    """)
-
-car1 = Car("Honda" , "Amaze" , "Black" , "10000" , "vivek" , 25 , "01-01-2000" , 85)
-
-car1.Car_Details()
+# Method of overriding occurs when a child class provides its own implementation of a method already defined in the parent class.
 
 
-class Student:
+class Animal:
 
-  # contsructor
+    def sound(self):
+        print("Animal makes sound.")
 
-  def __init__(self , name , age , dob , marks):
+class Dog(Animal):
 
-    #user
-    self.name = name
-    self.age = age
-    self.dob = dob
-    self.marks = marks
-   
-  def User_Details(self):
-    print(f"""
-    Name : {self.name}
-    Age : {self.age}
-    DOB : {self.dob}
-    Marks : {self.marks}
-    """)
+    def sound(self):
+        # super().sound()
+        Animal.sound(self)
+        print("Bhow , Bhow")
 
-student1 = Student("Vivek" , 25 , "01-01-2000" , 85)
+d = Dog()
 
-student1.User_Details()
+d.sound()
 
+class Employee:
 
-# Simple Creation
+    def work(self):
+        print("Employee is working.")
 
-class Person:
-  pass
+class Developer:
 
-p1 = Person()
+    def work(self):
+        print("Developer is working on code.")
 
-print(type(p1))
+class Designer:
 
+    def work(self):
+           print("Designer is working on Design.")
 
-class Person:
+employee = [Employee() , Developer() , Designer()]
 
-  name = "Vivek"
+for employ in employee:
+    employ.work()
 
-  age = 25
+# issubclass()
 
-  course = "Python"
+# issubclass(childclass , parentclass)
 
-p1 = Person()
+class Employee:
 
-print(p1.name)
-print(p1.age)
-print(p1.course)
+    def work(self):
+        print("Employee is working.")
 
+class Developer(Employee):
 
-# Class with Method and Constructor
+    def work(self):
+        print("Developer is working on code.")
 
-class Student:
+class Designer(Employee , Developer):
 
-  def __init__(self):
-    self.name = "vivek"
-    self.age = 20
+    def work(self):
+           print("Designer is working on Design.")
 
-  def display(self):
-    print(f"Welcome to Python OOP")
+employee = [Employee() , Developer() , Designer()]
 
-s1 = Student()
+for employ in employee:
+    employ.work()
 
-s1.display()
-s1.name = "Rahul"
-print(s1.name)
-print(s1.age)
-
-# Bank Account App
-
-class BankAccount:
-
-    def __init__(self,name,balance):
-        self.name = name
-        self.balance = balance
-
-    def __init__(self,amount):
-        self.balance += amount
-        print("Amount Deposite Successfully!.")
-
-    def __init__(self,amount):
-        if amount <= self.balance:
-            self.balance -= amount
-            print("Amount withdraw successfully!")
-        else:
-            print("Account balance is low.")
-
-    def check_balance(self):
-        print("Account Balance:",self.balance)
-
-account = BankAccount("vivek",100)
-account.balance = 1000000000000
-
-#name = input("Enter Account holder name : ")
-#balance = float(input("Enter Opening Balance:"))
-
-#account = BankAccount(name , balance)
-
-while True:
-
-  print("1. Deposit")
-  print("2. Withdraw")
-  print("3. Check Balance")
-  print("4. Exit")
-
-  choice = int(input("Enter your choice : "))
-
-  if choice == 1:
-
-    amount = float(input("Enter deposite amount : "))
-    account.deposite(amount)
-
-  elif choice == 2:
-
-    amount = float(input("Enter withdraw amount : "))
-    account.withdraw(amount)
-
-  elif choice == 3:
-    account.check_balance()
-
-  elif choice == 4:
-    print("Thank You!!!!")
-    break
-
-  else:
-    print("Invalid Choice")
+print(issubclass(Employee , Developer))
+print(issubclass(Designer  , Employee))
+print(issubclass(Designer , Developer))
 
 
-       
+# Child inherits from both parent and mother
+
+# super()
+
+# super() is used to access parent class methods or constructor from the child class.
+
+
+ 
+
+
+
+
+
+
+
+
+
+
         
 
-        
+
+
+
+    
+    
+    
